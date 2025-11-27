@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Drink Mistério — Projeto de Automação</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="icon.png" />
+  </head>
+
+  <body>
+    <header class="hero">
+      <div class="timer-wrap">
+        <div id="timerBar" class="timer-bar"></div>
+      </div>
+
+      <div class="container hero-content">
+        <h1 id="projectTitle">Drink Mistério</h1>
+
+        <p class="subtitle">
+          Máquina automática com sensores ultrassônicos — Projeto de Automação
+        </p>
+
+        <div class="meta">
+          <span class="badge">
+            Autores: João Rafael, Kezia Aguiar, Yasmin Karolina, Thayna Verçosa,
+            Larissa Morais, Diogo Alcelino
+          </span>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+
+      <!-- DESCRIÇÃO -->
+      <section id="descricao">
+        <h2>Descrição do Projeto</h2>
+
+        <p>
+          Esse projeto é importante porque a automação está cada vez mais presente
+          em dispositivos do dia a dia, especialmente em sistemas que priorizam
+          praticidade, higiene e redução de contato físico. O protótipo demonstra
+          como sensores, microcontroladores e atuadores podem ser integrados para
+          criar soluções práticas e eficientes.
+        </p>
+
+        <p>
+          O objetivo é desenvolver uma máquina automática capaz de liberar líquido
+          usando sensores ultrassônicos. Ao detectar um copo próximo, o sistema aciona
+          LEDs e duas bombas de água, liberando o líquido pelos caninhos.
+        </p>
+
+        <p>
+          É um projeto voltado para automação, eletrônica embarcada e sistemas de
+          controle, semelhantes a máquinas industriais, vending machines e sistemas de
+          higienização sem toque.
+        </p>
+
+        <h3>Esquema Conceitual</h3>
+
+        <div class="placeholder-img">
+          <img src="Diagrama do protótipo.jpg" class="diagrama-img" />
+        </div>
+      </section>
+
+      <!-- PALAVRAS-CHAVE -->
+      <section>
+        <h2>Palavras-chave</h2>
+        <ul>
+          <li>Automação</li>
+          <li>Arduino</li>
+          <li>Sensor ultrassônico</li>
+          <li>Bomba de água</li>
+          <li>Protótipo eletrônico</li>
+        </ul>
+      </section>
+
+      <!-- COMPONENTES -->
+      <section>
+        <h2>Componentes e Suprimentos</h2>
+
+        <ul>
+          <li><strong>1 Arduino Uno R3</strong> – Código: A000066</li>
+          <li><strong>1 Protoboard</strong></li>
+          <li><strong>2 Bombas de Água DC 5–12V</strong></li>
+          <li><strong>2 Sensores Ultrassônicos HC-SR04</strong> – Código: HC-SR04</li>
+          <li><strong>Ponte H L9110S (Driver)</strong> – Código: L9110S</li>
+          <li><strong>2 Baterias 3.7V</strong> – Código: 18650</li>
+          <li><strong>2 LEDs + 2 Resistores 220Ω</strong> – Código: 220R</li>
+          <li>Jumpers diversos</li>
+        </ul>
+      </section>
+
+      <!-- PLATAFORMAS -->
+      <section>
+        <h2>Aplicativos e Plataformas</h2>
+        <ul>
+          <li>Arduino IDE 2.3.6</li>
+          <li>Tinkercad Circuits</li>
+          <li>Canva</li>
+        </ul>
+      </section>
+
+      <!-- PASSO A PASSO -->
+      <section>
+        <h2>Passo a Passo</h2>
+        <p>Adicionar as imagens e explicações detalhadas aqui.</p>
+      </section>
+
+      <!-- CÓDIGO ARDUINO COMPLETO -->
+      <section id="codigo">
+        <h2>Código Completo (Arduino)</h2>
+
+        <pre><code>
+#define IN1 3
+#define IN2 4
+#define LED1 7
+
+#define TRIG1 8
+#define ECHO1 9
+
+#define IB1 5
+#define IB2 6
+#define LED2 10
+#define TRIG2 11
+#define ECHO2 12
+
+long duracao;
+int distancia;
+
+void setup() {
+  pinMode(IN1, OUTPUT);
+  pinMode(IN2, OUTPUT);
+  pinMode(LED1, OUTPUT);
+
+  pinMode(TRIG1, OUTPUT);
+  pinMode(ECHO1, INPUT);
+
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, LOW);
+  digitalWrite(LED1, LOW);
+
+  pinMode(IB1, OUTPUT);
+  pinMode(IB2, OUTPUT);
+  pinMode(LED2, OUTPUT);
+
+  pinMode(TRIG2, OUTPUT);
+  pinMode(ECHO2, INPUT);
+
+  digitalWrite(IB1, LOW);
+  digitalWrite(IB2, LOW);
+  digitalWrite(LED2, LOW);
+}
+
+void loop() {
+  digitalWrite(TRIG1, LOW);
+  delayMicroseconds(2);
+  digitalWrite(TRIG1, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(TRIG1, LOW);
+
+  duracao = pulseIn(ECHO1, HIGH);
+  distancia = duracao * 0.034 / 2;
+
+  if (distancia > 0 && distancia < 10) {
+    digitalWrite(LED1, HIGH);
+    digitalWrite(IN1, HIGH);
+    digitalWrite(IN2, LOW);
+  } else {
+    digitalWrite(LED1, LOW);
+    digitalWrite(IN1, LOW);
+    digitalWrite(IN2, LOW);
+  }
+
+  digitalWrite(TRIG2, LOW);
+  delayMicroseconds(2);
+  digitalWrite(TRIG2, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(TRIG2, LOW);
+
+  duracao = pulseIn(ECHO2, HIGH);
+  distancia = duracao * 0.034 / 2;
+
+  if (distancia > 0 && distancia < 10) {
+    digitalWrite(LED2, HIGH);
+    digitalWrite(IB1, HIGH);
+    digitalWrite(IB2, LOW);
+  } else {
+    digitalWrite(LED2, LOW);
+    digitalWrite(IB1, LOW);
+    digitalWrite(IB2, LOW);
+  }
+
+  delay(50);
+}
+        </code></pre>
+      </section>
+
+      <!-- DOWNLOAD -->
+      <section>
+        <h2>Download do Projeto</h2>
+        <a class="download-btn" href="projeto.zip" download>Baixar Projeto Completo</a>
+      </section>
+
+      <!-- VÍDEO -->
+      <section id="video">
+        <h2>Vídeo Demonstrativo</h2>
+        <p>Acompanhe o vídeo mostrando o funcionamento do protótipo:</p>
+
+        <div class="video-container">
+          <iframe 
+            src="https://www.youtube.com/embed/XXXXXXXXXXX"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </section>
+
+      <!-- AUTORES -->
+      <section id="autores">
+        <h2>Autores</h2>
+
+        <div class="authors">
+          <div class="author-card">
+            <img src="joao.jpg" alt="João Rafael" />
+            <h4>João Rafael</h4>
+            <p><a href="https://github.com/jaozinnm" target="_blank">GitHub</a></p>
+          </div>
+
+          <div class="author-card">
+            <img src="kezia.jpg" alt="Kezia Aguiar" />
+            <h4>Kezia Aguiar</h4>
+            <p><a href="https://github.com/keziaaguiar12" target="_blank">GitHub</a></p>
+          </div>
+
+          <div class="author-card">
+            <img src="yasmin.jpg" alt="Yasmin Karolina" />
+            <h4>Yasmin Karolina</h4>
+            <p><a href="https://github.com/Yasmink-godinho" target="_blank">GitHub</a></p>
+          </div>
+
+          <div class="author-card">
+            <img src="thayna.jpg" alt="Thayna Verçosa" />
+            <h4>Thayna Verçosa</h4>
+            <p><a href="https://github.com/thaynavercosa" target="_blank">GitHub</a></p>
+          </div>
+
+          <div class="author-card">
+            <img src="foto-larissa.jpg" alt="Larissa Morais" />
+            <h4>Larissa Morais</h4>
+            <p><a href="https://github.com/LarissamnLira" target="_blank">GitHub</a></p>
+          </div>
+
+          <div class="author-card">
+            <img src="diogo.jpg" alt="Diogo Felipe" />
+            <h4>Diogo Alcelino</h4>
+            <p><a href="https://github.com/dioguis" target="_blank">GitHub</a></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROBLEMAS -->
+      <section id="licoes">
+        <h2>Problemas enfrentados e lições aprendidas</h2>
+
+        <p>
+          Tivemos problemas como ponte H queimada, motor queimado e vazamentos de água.
+          Também enfrentamos dificuldades com o código e o circuito não respondendo
+          corretamente. Com testes e pesquisas, conseguimos resolver tudo.
+        </p>
+
+        <p>
+          Aprendemos a importância de testar cada etapa, revisar o circuito e entender
+          melhor alimentação e segurança dos componentes.
+        </p>
+      </section>
+
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <p>Projeto para a disciplina de Sistemas Digitais — Cesar School</p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+
+  </body>
+</html>
