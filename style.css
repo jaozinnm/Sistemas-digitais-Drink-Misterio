@@ -223,49 +223,51 @@ pre{
 /* ==============================
       CARROSSEL
 ================================= */
-.carrossel {
-    position: relative;
-    width: 100%;
-    max-width: 420px;
-    margin: 30px auto;
-    overflow: hidden;
-    border-radius: 12px;
-}
-
+/* ----- CARROSSEL MAIS COMPACTO ----- */
 .carrossel-container {
-    width: 100%;
-    position: relative;
+  width: 100%;
+  max-width: 380px; /* 👈 deixei menor */
+  margin: 30px auto;
+  text-align: center;
 }
 
-.slide {
-    width: 100%;
-    display: none;
-    border-radius: 12px;
+.carrossel {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 12px;
 }
 
-.slide.active {
-    display: block;
+.carrossel-slides img {
+  width: 100%;
+  max-height: 300px;     /* 👈 reduz altura */
+  object-fit: cover;     /* 👈 corta ao invés de esticar */
+  border-radius: 12px;
+  display: none;
+}
+
+.carrossel-slides img.active {
+  display: block;
 }
 
 .btn-prev,
 .btn-next {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(0,0,0,0.4);
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
-    font-size: 22px;
-    border-radius: 50%;
-    transition: 0.2s;
-}
-
-.btn-prev:hover,
-.btn-next:hover {
-    background: rgba(0,0,0,0.7);
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #00000090;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 6px;
+  font-size: 20px;
 }
 
 .btn-prev { left: 10px; }
 .btn-next { right: 10px; }
+
+.btn-prev:hover,
+.btn-next:hover {
+  background: #000000c7;
+}
