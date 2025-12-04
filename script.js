@@ -5,6 +5,32 @@
    - Pequenas interações visuais
 */
 
+/* =========================================================
+   CARROSSEL DO PASSO A PASSO
+========================================================= */
+
+const slides = document.querySelectorAll(".slide");
+const btnPrev = document.querySelector(".btn-prev");
+const btnNext = document.querySelector(".btn-next");
+
+let atual = 0;
+
+function mostrarSlide(index) {
+    slides.forEach(s => s.classList.remove("active"));
+    slides[index].classList.add("active");
+}
+
+btnNext.addEventListener("click", () => {
+    atual = (atual + 1) % slides.length;
+    mostrarSlide(atual);
+});
+
+btnPrev.addEventListener("click", () => {
+    atual = (atual - 1 + slides.length) % slides.length;
+    mostrarSlide(atual);
+});
+
+
 (() => {
 
   // ELEMENTOS
@@ -78,3 +104,6 @@
   });
 
 })();
+
+
+

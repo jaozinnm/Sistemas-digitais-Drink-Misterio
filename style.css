@@ -219,3 +219,53 @@ pre{
   margin: 20px auto;     /* centraliza */
   border-radius: 6px;
 }
+
+/* ==============================
+      CARROSSEL
+================================= */
+.carrossel {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    margin: 30px auto;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+.carrossel-container {
+    width: 100%;
+    position: relative;
+}
+
+.slide {
+    width: 100%;
+    display: none;
+    border-radius: 12px;
+}
+
+.slide.active {
+    display: block;
+}
+
+.btn-prev,
+.btn-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0,0,0,0.4);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 22px;
+    border-radius: 50%;
+    transition: 0.2s;
+}
+
+.btn-prev:hover,
+.btn-next:hover {
+    background: rgba(0,0,0,0.7);
+}
+
+.btn-prev { left: 10px; }
+.btn-next { right: 10px; }
